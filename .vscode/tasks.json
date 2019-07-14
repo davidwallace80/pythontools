@@ -4,9 +4,45 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build",
+            "label": "Build and Publish Production",
             "type": "shell",
-            "command": "${workspaceFolder}\\Start-Build.ps1 ",
+            "command": "${workspaceFolder}\\Start-Build.ps1 -NugetApiKey $(If($NugetApiKey){$NugetApiKey}Else{$NugetApiKey = Read-Host -Prompt 'Nuget Api Key';$NugetApiKey})",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Build and Publish PreRelease",
+            "type": "shell",
+            "command": "${workspaceFolder}\\Start-Build.ps1 -PreReleaseTag 'prerelease' -NugetApiKey $(If($NugetApiKey){$NugetApiKey}Else{$NugetApiKey = Read-Host -Prompt 'Nuget Api Key';$NugetApiKey})",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Build and Publish Beta",
+            "type": "shell",
+            "command": "${workspaceFolder}\\Start-Build.ps1 -PreReleaseTag 'beta' -NugetApiKey $(If($NugetApiKey){$NugetApiKey}Else{$NugetApiKey = Read-Host -Prompt 'Nuget Api Key';$NugetApiKey})",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Build and Publish Alpha",
+            "type": "shell",
+            "command": "${workspaceFolder}\\Start-Build.ps1 -PreReleaseTag 'alpha' -NugetApiKey $(If($NugetApiKey){$NugetApiKey}Else{$NugetApiKey = Read-Host -Prompt 'Nuget Api Key';$NugetApiKey})",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Build Local",
+            "type": "shell",
+            "command": "${workspaceFolder}\\Start-Build.ps1 -BuildTasks 'Build,Analyse'",
             "group": {
                 "kind": "build",
                 "isDefault": true

@@ -1,0 +1,63 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+variables:
+- group: PSGallery
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+
+- powershell: .\Start-Build.ps1 -BuildTasks 'build' -PreReleaseTag 'PreRelease.$(Build.BuildNumber)'.Replace('.','')
+  displayName: 'Build PreRelease'
+  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+- powershell: .\Start-Build.ps1 -BuildTasks 'build'
+  displayName: 'Build Production'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+- powershell: .\Start-Build.ps1 -BuildTasks 'analyse'
+  displayName: 'Analyse'
+
+- powershell: .\Start-Build.ps1 -BuildTasks 'test'
+  displayName: 'Test'
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results'
+  inputs:
+    testResultsFormat: 'NUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
+    testResultsFiles: '$(System.DefaultWorkingDirectory)\artifacts\TestResult.xml'
+    #searchFolder: '$(System.DefaultWorkingDirectory)' # Optional
+    #mergeTestResults: false # Optional
+    failTaskOnFailedTests: true # Optional
+    #testRunTitle: # Optional
+    #buildPlatform: # Optional
+    #buildConfiguration: # Optional
+    #publishRunAttachments: true # Optional
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish Code Coverage Results'
+  inputs:
+    codeCoverageTool: 'JaCoCo' # Options: cobertura, jaCoCo
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)\artifacts\Coverage.xml'
+    #pathToSources: # Optional
+    #reportDirectory: # Optional
+    #additionalCodeCoverageFiles: # Optional
+    #failIfCoverageEmpty: false # Optional
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Build Artifacts'
+  inputs:
+    pathToPublish: '$(System.DefaultWorkingDirectory)\artifacts'
+    artifactName: 'PythonTools'
+
+- powershell: .\Start-Build.ps1 -BuildTasks 'publish' -NugetApiKey $Env:NugetApiKey
+  displayName: 'Publish to PowerShell Gallery'
+  env:
+    NugetApiKey: $(NugetApiKey)
