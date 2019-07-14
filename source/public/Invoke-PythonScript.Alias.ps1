@@ -1,0 +1,1 @@
+New-Alias -Name ipy -Value Invoke-PythonScript
