@@ -65,7 +65,7 @@ If ($ConvertJsonOutput)
   {
     $PythonOutput | ConvertFrom-Json
   }
-Else 
+Else
   {
     $PythonOutput
   }
