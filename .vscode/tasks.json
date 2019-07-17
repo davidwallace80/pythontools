@@ -4,45 +4,36 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build and Publish Production",
+            "label": "Build,Analyse & Test",
             "type": "shell",
-            "command": "${workspaceFolder}\\Start-Build.ps1 -NugetApiKey $(If($NugetApiKey){$NugetApiKey}Else{$NugetApiKey = Read-Host -Prompt 'Nuget Api Key';$NugetApiKey})",
+            "command": "${workspaceFolder}\\Start-Build.ps1 -BuildTasks 'Build,Analyse,Test'",
             "group": {
                 "kind": "build",
                 "isDefault": true
             }
         },
         {
-            "label": "Build and Publish PreRelease",
+            "label": "Build",
             "type": "shell",
-            "command": "${workspaceFolder}\\Start-Build.ps1 -PreReleaseTag 'prerelease' -NugetApiKey $(If($NugetApiKey){$NugetApiKey}Else{$NugetApiKey = Read-Host -Prompt 'Nuget Api Key';$NugetApiKey})",
+            "command": "${workspaceFolder}\\Start-Build.ps1 -BuildTasks 'Build'",
             "group": {
                 "kind": "build",
                 "isDefault": true
             }
         },
         {
-            "label": "Build and Publish Beta",
+            "label": "Analyse",
             "type": "shell",
-            "command": "${workspaceFolder}\\Start-Build.ps1 -PreReleaseTag 'beta' -NugetApiKey $(If($NugetApiKey){$NugetApiKey}Else{$NugetApiKey = Read-Host -Prompt 'Nuget Api Key';$NugetApiKey})",
+            "command": "${workspaceFolder}\\Start-Build.ps1 -BuildTasks 'Analyse'",
             "group": {
                 "kind": "build",
                 "isDefault": true
             }
         },
         {
-            "label": "Build and Publish Alpha",
+            "label": "Test",
             "type": "shell",
-            "command": "${workspaceFolder}\\Start-Build.ps1 -PreReleaseTag 'alpha' -NugetApiKey $(If($NugetApiKey){$NugetApiKey}Else{$NugetApiKey = Read-Host -Prompt 'Nuget Api Key';$NugetApiKey})",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        },
-        {
-            "label": "Build Local",
-            "type": "shell",
-            "command": "${workspaceFolder}\\Start-Build.ps1 -BuildTasks 'Build,Analyse'",
+            "command": "${workspaceFolder}\\Start-Build.ps1 -BuildTasks 'Test'",
             "group": {
                 "kind": "build",
                 "isDefault": true

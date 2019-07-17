@@ -1,7 +1,12 @@
 # PythonTools
 [![Build Status](https://dev.azure.com/dwallace0561/pythontools/_apis/build/status/davidwallace80.pythontools?branchName=master)](https://dev.azure.com/dwallace0561/pythontools/_build/latest?definitionId=1&branchName=master)
 
-PowerShell module for interacting with Python on Windows
+PowerShell module for interacting with Python on Windows. Supported for use with Python versions 2 and 3.  
+
+**Notes:**
+
+- Python version 3 must be installed for Python version 3 support.
+- Python version 2 and 3 must be installed for Python version 2 support.
 
 ## Installing the Module
 
@@ -84,46 +89,35 @@ Note. Prerelease versions can only be installed explicitly . Therefore, producti
 
 For Visual Studio Code users CTRL + SHIFT + B will present you with the following build options.
 
-1. Build Local - Builds module to the artifacts path defined in PSModule.Settings.ps1
+1. Build - Builds the module locally to the artifacts path defined in PSModule.Settings.ps1
 
    This will execute:
 
    ```powershell
-   Start-Build.ps1 -BuildTasks 'Build,Analyse'
+   Start-Build.ps1 -BuildTasks 'Build'
    ```
 
-2. Build and Publish Alpha - Builds and publishes module with alpha tag.
+2. Analyse - Analyses the module (using Invoke-ScriptAnalyzer) located in the artifacts path defined in PSModule.Settings.ps1
 
    This will execute:
 
    ```powershell
-   Start-Build.ps1 -PreReleaseTag 'alpha' -NugetApiKey $(If($NugetApiKey){$NugetApiKey}Else{$NugetApiKey = Read-Host -Prompt 'Nuget Api Key';$NugetApiKey})
+   Start-Build.ps1 -BuildTasks 'Analyse'
    ```
 
-3. Build and Publish Beta  - Builds and publishes module with beta tag.
+3. Test- Tests the module (using Pester) located in the artifacts path defined in PSModule.Settings.ps1
 
    This will execute:
 
    ```powershell
-   Start-Build.ps1 -PreReleaseTag 'beta' -NugetApiKey $(If($NugetApiKey){$NugetApiKey}Else{$NugetApiKey = Read-Host -Prompt 'Nuget Api Key';$NugetApiKey})
+   Start-Build.ps1 -BuildTasks 'Test'
    ```
 
-4. Build and Publish PreRelease -  Builds and publishes module with prerelease tag.
+4. Build, Analyse & Test -  Performs all steps outlined above.
 
    This will execute:
 
    ```powershell
-   Start-Build.ps1 -PreReleaseTag 'prerelease' -NugetApiKey $(If($NugetApiKey){$NugetApiKey}Else{$NugetApiKey = Read-Host -Prompt 'Nuget Api Key';$NugetApiKey})
+   Start-Build.ps1 -BuildTasks 'Build,Analyse,Test'
    ```
 
-5. Build and Publish Production -  Builds and publishes module for production use.
-
-   This will execute:
-
-   ```powershell
-   Start-Build.ps1 -NugetApiKey $(If($NugetApiKey){$NugetApiKey}Else{$NugetApiKey = Read-Host -Prompt 'Nuget Api Key';$NugetApiKey})
-   ```
-
-Notes:
-
-- A Nuget Api Key is required to publish to the PowerShell Gallery.

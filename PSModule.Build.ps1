@@ -1,7 +1,8 @@
 Param (
         [String] $PreReleaseTag,
         [String] $NugetApiKey,
-        $BuildTasks
+        $BuildTasks,
+        [Switch] $NoAssertOnTestFailures
       )
 
 #Import Build Settings.
@@ -156,12 +157,13 @@ Task Test {
 
                 $Pester = Invoke-Pester -CodeCoverage $ModulePath -CodeCoverageOutputFile $CodeCoverageFilePath -CodeCoverageOutputFileFormat JaCoCo -OutputFile $NUnitXmlPath -OutputFormat NUnitXml -PassThru
 
-                #assert($Pester.FailedCount -eq 0) ("$($Pester.FailedCount) test(s) failed!")
-
-                #$CodeCoverage = [Math]::Round($Pester.CodeCoverage.NumberOfCommandsExecuted / $Pester.CodeCoverage.NumberOfCommandsAnalyzed * 100,2)
-
-                #assert($CodeCoverage -ge $BuildSettings.AcceptedCodeCoverage) ("Code coverage must be greater or equal to $($BuildSettings.AcceptedCodeCoverage)%! Code Coverage is $CodeCoverage%")
-          }
+                If (!($NoAssertOnTestFailures.IsPresent))
+                    {
+                        assert($Pester.FailedCount -eq 0) ("$($Pester.FailedCount) test(s) failed!")
+                        $CodeCoverage = [Math]::Round($Pester.CodeCoverage.NumberOfCommandsExecuted / $Pester.CodeCoverage.NumberOfCommandsAnalyzed * 100,2)
+                        assert($CodeCoverage -ge $BuildSettings.AcceptedCodeCoverage) ("Code coverage must be greater or equal to $($BuildSettings.AcceptedCodeCoverage)%! Code Coverage is $CodeCoverage%")
+                    }
+            }
 
 Task Archive {
                 $ErrorActionPreference = 'Stop'
