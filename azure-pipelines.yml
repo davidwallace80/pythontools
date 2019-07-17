@@ -7,7 +7,13 @@ variables:
 - group: PSGallery
 
 trigger:
-- master
+  branches:
+    include:
+    - master
+  paths:
+    exclude:
+    - README.md   
+    - LICENSE.md
 
 pool:
   vmImage: 'windows-latest'
@@ -25,7 +31,7 @@ steps:
 - powershell: .\Start-Build.ps1 -BuildTasks 'analyse'
   displayName: 'Analyse'
 
-- powershell: .\Start-Build.ps1 -BuildTasks 'test'
+- powershell: .\Start-Build.ps1 -BuildTasks 'test' -NoAssertOnTestFailures
   displayName: 'Test'
 
 - task: PublishTestResults@2
