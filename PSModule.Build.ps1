@@ -41,6 +41,9 @@ Task Build {
 
                 If ($BuildSettings.CopyRight){$ManifestConfiguration.Add('CopyRight',$BuildSettings.CopyRight)}
                 If ($BuildSettings.Tags){$ManifestConfiguration.Add('Tags',$BuildSettings.Tags)}
+                If ($BuildSettings.ProjectUri){$ManifestConfiguration.Add('ProjectUri',$BuildSettings.ProjectUri)}
+                If ($BuildSettings.ReleaseNotes){$ManifestConfiguration.Add('ReleaseNotes',$BuildSettings.ReleaseNotes)}
+                If ($BuildSettings.LicenseUri){$ManifestConfiguration.Add('LicenseUri',$BuildSettings.LicenseUri)}
 
                 Write-Build Yellow  "Building $($BuildSettings.Name) module version $($ManifestConfiguration.ModuleVersion)..."
                 Write-Build Yellow  "Generating module manifiest..."
