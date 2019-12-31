@@ -1,0 +1,1 @@
+New-Alias -Name lsvirtualenv -Value Get-PythonEnvironment

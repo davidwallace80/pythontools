@@ -48,7 +48,7 @@ If loaded successfully, an object will be returned containing details of the mod
 To list availble Cmdlets in the module execute the following command:
 
 ```powershell
-(Get-Module -Name PythonTools).ExportedCommands.Keys
+Get-Command -Module PythonTools
 ```
 
 For help and examples on each Cmdlet use the following command:

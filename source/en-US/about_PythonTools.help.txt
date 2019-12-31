@@ -1,0 +1,57 @@
+PowerShell module for interacting with Python on Windows. Supported for use with Python versions 2 and 3.
+
+Requirements:
+
+    * Python version 3 must be installed for Python version 3 support.
+    * Python version 2 and 3 must be installed for Python version 2 support.
+
+Install Python with Chocolatey:
+
+    Python 3: 
+        choco install python3
+
+    Python 2:
+        choco install python2
+
+Cmdlet Help:
+
+    Use the following command to list available cmdlets:
+
+        Get-Command -Module PythonTools
+
+    For more detailed help on each cmdlet use:
+
+        Get-Help <CmdletName> -Full
+
+Example:
+
+    Create a new Python environment:
+
+        New-PythonEnvironment -Name myenv -Version 3
+
+    List Python environments with version number:
+
+        Get-PythonEnvironment -Detailed
+
+    Open a Python environment:
+
+        Enter-PythonEnvironment -Name myenv
+
+    Close a Python environment:
+
+        Exit-PythonEnvironment
+
+    Delete a Python environmennt:
+
+        Remove-PythonEnvironment -Name myenv
+
+    Run a python script:
+
+        Invoke-PythonScript -Path myscript.py
+
+    Run a python script with JSON output:
+
+        Invoke-PythonScript -Path myscript.py -ConvertJsonOutput
+
+Report Issues:
+    https://github.com/davidwallace80/pythontools/issues
