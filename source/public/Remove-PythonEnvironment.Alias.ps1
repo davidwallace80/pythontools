@@ -1,0 +1,1 @@
+New-Alias -Name rmvirtualenv -Value Remove-PythonEnvironment

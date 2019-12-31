@@ -1,0 +1,1 @@
+New-Alias -Name workon -Value Enter-PythonEnvironment

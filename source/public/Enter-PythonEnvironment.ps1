@@ -8,6 +8,9 @@
 .PARAMETER Name
     Name of the virtual environment.
 
+.PARAMETER ChangeDirectory
+    Change location to the environment directory.
+
 .INPUTS
   System.String
 
@@ -41,7 +44,8 @@
 [CmdLetBinding(SupportsShouldProcess, ConfirmImpact='High')]
 Param (
         [Parameter (Mandatory=$True,Position=1)]
-        [String] $Name
+        [String] $Name,
+        [Switch] $ChangeDirectory
         )
 
 $ErrorActionPreference = 'Stop'
@@ -62,7 +66,12 @@ If (Test-Path $VirtualEnvironmentPath)
                 $ActivatePath = Join-Path -Path $VirtualEnvironmentPath -ChildPath 'Scripts\Activate.ps1'
                 & $ActivatePath
                 & python.exe --version
-                Set-Location -Path $VirtualEnvironmentPath
+
+                If ($ChangeDirectory)
+                    {
+                        Set-Location -Path $VirtualEnvironmentPath
+                    }
+
             }
     }
 else
