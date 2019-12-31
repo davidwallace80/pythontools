@@ -15,7 +15,7 @@ The PythonTools Module is published to the PowerShell gallery.
 To install the latest module:
 
 ```powershell
-Install-module -Name PythonTools
+Install-Module -Name PythonTools
 ```
 
 - To install the latest Prerelease module append the -AllowPreRelease parameter.
