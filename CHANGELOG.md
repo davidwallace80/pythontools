@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.3] - 2019-03-08
+### Fixed
+- Fixed Enter-PyhtonTools bug.
+
 ## [1.1.2] - 2019-12-31
 ### Added
 - Module: Help file

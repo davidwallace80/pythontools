@@ -56,6 +56,11 @@ $VirtualEnvironmentPath = Join-Path -Path $VirtualEnvironmentRoot -ChildPath $Na
 
 If (Test-Path $VirtualEnvironmentPath)
     {
+        #Required for Activate.ps1
+        If (!(Test-Path -Path Function:\_OLD_VIRTUAL_PROMPT))
+            {
+                function global:_OLD_VIRTUAL_PROMPT {""}
+            }
 
         If ($Env:VIRTUAL_ENV)
             {
@@ -64,7 +69,7 @@ If (Test-Path $VirtualEnvironmentPath)
         else
             {
                 $ActivatePath = Join-Path -Path $VirtualEnvironmentPath -ChildPath 'Scripts\Activate.ps1'
-                & $ActivatePath
+                . $ActivatePath
                 & python.exe --version
 
                 If ($ChangeDirectory)
