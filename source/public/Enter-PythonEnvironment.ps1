@@ -56,15 +56,15 @@ $VirtualEnvironmentPath = Join-Path -Path $VirtualEnvironmentRoot -ChildPath $Na
 
 If (Test-Path $VirtualEnvironmentPath)
     {
-
         If ($Env:VIRTUAL_ENV)
             {
                 Throw 'Already in virtual environment, use Exit-PythonEnvironment!'
             }
         else
             {
+                Copy-Item -Path Function:prompt -Destination Function:_OLD_VIRTUAL_PROMPT -Force
                 $ActivatePath = Join-Path -Path $VirtualEnvironmentPath -ChildPath 'Scripts\Activate.ps1'
-                & $ActivatePath
+                . $ActivatePath
                 & python.exe --version
 
                 If ($ChangeDirectory)
