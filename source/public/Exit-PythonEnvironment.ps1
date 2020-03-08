@@ -37,11 +37,8 @@
 
 $ErrorActionPreference = 'Stop'
 
-Function global:prompt {Write-Host -NoNewline $Env:_OLD_VIRTUAL_PATH}
-
-$Env:_OLD_VIRTUAL_PROMPT = $Null
-
 Copy-Item -Path Function:_OLD_VIRTUAL_PROMPT -Destination Function:prompt
+Remove-Item -Path Function:\_OLD_VIRTUAL_PROMPT
 
 If ($Env:_OLD_VIRTUAL_PATH_PYTHONHOME)
     {
