@@ -37,8 +37,8 @@
 
 $ErrorActionPreference = 'Stop'
 
-Copy-Item -Path Function:_OLD_VIRTUAL_PROMPT -Destination Function:prompt
-Remove-Item -Path Function:\_OLD_VIRTUAL_PROMPT
+Copy-Item -Path Function:_OLD_VIRTUAL_PROMPT -Destination Function:prompt -ErrorAction SilentlyContinue
+Remove-Item -Path Function:\_OLD_VIRTUAL_PROMPT -ErrorAction SilentlyContinue
 
 If ($Env:_OLD_VIRTUAL_PATH_PYTHONHOME)
     {
