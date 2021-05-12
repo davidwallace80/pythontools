@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.4] - 2021-05-12
+### Fixed
+- Fixed Exit-PythonEnvironment bug.
 ## [1.1.3] - 2019-03-08
 ### Fixed
 - Fixed Enter-PyhtonTools bug.
